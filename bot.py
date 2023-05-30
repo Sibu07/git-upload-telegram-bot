@@ -17,6 +17,7 @@ app = Client(
     api_hash=os.getenv("TELEGRAM_API_HASH"),
     bot_token=os.getenv("TELEGRAM_BOT_TOKEN")
 )
+
 @app.on_message(filters.command('start') & filters.private)
 def start_command(bot, message):
     app.send_message(
@@ -37,10 +38,12 @@ def upload_to_github(file_path: str, target_path: str):
     github_repo_name = os.getenv("GITHUB_REPO_NAME")
     github_access_token = os.getenv("GITHUB_ACCESS_TOKEN")
 
+    tg_bot_name = os.getenv("TELEGRAM_BOT_NAME", "@Pyrgm_bot")
+
     url = f"https://api.github.com/repos/{github_username}/{github_repo_name}/contents/{target_path}"
     headers = {"Authorization": f"token {github_access_token}"}
     data = {
-        "message": f"Upload {target_path}",
+        "message": f"Upload {target_path} by Telegram bot {tg_bot_name}",
         "content": encoded_content
     }
     response = requests.put(url, json=data, headers=headers)
@@ -51,10 +54,10 @@ def upload_to_github(file_path: str, target_path: str):
         print("Error uploading the file:")
         print(response.status_code, response.text)
 
-@app.on_message(filters.document)
+@app.on_message(filters.document | filters.photo | filters.video | filters.audio | filters.sticker | filters.animation)
 def handle_file_upload(client: Client, message: Message):
     # Get the file from the message
-    file = message.document
+    file = message.document or message.photo or message.video or message.audio or message.sticker or message.animation
 
     # Download the file to a temporary location
     with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
