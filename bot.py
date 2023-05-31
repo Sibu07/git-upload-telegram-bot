@@ -1,7 +1,10 @@
 import os
 import traceback
 import tempfile
+import datetime
 import base64
+import time
+from datetime import timedelta
 from pyrogram import Client, filters
 from pyrogram.types import Message
 import requests
@@ -17,6 +20,8 @@ app = Client(
     api_hash=os.getenv("TELEGRAM_API_HASH"),
     bot_token=os.getenv("TELEGRAM_BOT_TOKEN")
 )
+
+start_time = datetime.datetime.now()  # Store the start time
 
 @app.on_message(filters.command('start') & filters.private)
 def start_command(bot, message):
@@ -37,7 +42,6 @@ def upload_to_github(file_path: str, target_path: str):
     github_username = os.getenv("GITHUB_USERNAME")
     github_repo_name = os.getenv("GITHUB_REPO_NAME")
     github_access_token = os.getenv("GITHUB_ACCESS_TOKEN")
-
     tg_bot_name = os.getenv("TELEGRAM_BOT_NAME", "@Pyrgm_bot")
 
     url = f"https://api.github.com/repos/{github_username}/{github_repo_name}/contents/{target_path}"
@@ -87,7 +91,21 @@ def get_raw_github_url(file_path: str) -> str:
     github_repo_name = os.getenv("GITHUB_REPO_NAME")
     raw_url = f"https://raw.githubusercontent.com/{github_username}/{github_repo_name}/main/{file_path}"
     return raw_url
-    
+
+@app.on_message(filters.command('uptime'))
+def uptime_command(bot, message):
+    current_time = datetime.datetime.now()
+    uptime = current_time - start_time
+    days = uptime.days
+    hours, remainder = divmod(uptime.seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    uptime_text = f"{days} days, {hours:02d} hours, {minutes:02d} minutes, {seconds:02d} seconds"
+    app.send_message(
+        chat_id=message.chat.id,
+        text=f"Bot has been running for {uptime_text}."
+    )
+
 print("Bot is running...")
+
 # Start the bot
 app.run()
