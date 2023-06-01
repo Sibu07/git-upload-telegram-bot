@@ -105,7 +105,9 @@ def uptime_command(bot, message):
         text=f"Bot has been running for {uptime_text}."
     )
 
-print("Bot started at:", datetime.datetime.now())
-
+print("Bot is running...")
+now = datetime.datetime.now()
+formatted_time = now.strftime("%A, %B %d, %Y %I:%M:%S %p")
+print("Bot started at:", formatted_time)
 # Start the bot
 app.run()
