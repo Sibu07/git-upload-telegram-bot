@@ -30,6 +30,7 @@ def start_command(bot, message):
         text="Hey bro!"
     )
 
+
 def upload_to_github(file_path: str, target_path: str):
     # Read file contents as binary
     with open(file_path, "rb") as f:
@@ -105,6 +106,13 @@ def uptime_command(bot, message):
         text=f"Bot has been running for {uptime_text}."
     )
 
+@app.on_message(filters.command('starttime'))
+def starttime_command(bot, message):
+    formatted_time = start_time.strftime("%A, %B %d, %Y %I:%M:%S %p")
+    app.send_message(
+        chat_id=message.chat.id,
+        text=f"The bot started at: {formatted_time}"
+        )
 print("Bot is running...")
 now = datetime.datetime.now()
 formatted_time = now.strftime("%A, %B %d, %Y %I:%M:%S %p")
