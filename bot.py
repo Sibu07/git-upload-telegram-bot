@@ -96,7 +96,7 @@ def get_raw_github_url(file_path: str) -> str:
 def uptime_command(bot, message):
     current_time = datetime.datetime.now()
     uptime = current_time - start_time
-    days = uptime.days
+    days = uptime.days + 1 if uptime.seconds >= 43200 else uptime.days
     hours, remainder = divmod(uptime.seconds, 3600)
     minutes, seconds = divmod(remainder, 60)
     uptime_text = f"{days} days, {hours:02d} hours, {minutes:02d} minutes, {seconds:02d} seconds"
@@ -105,7 +105,7 @@ def uptime_command(bot, message):
         text=f"Bot has been running for {uptime_text}."
     )
 
-print("Bot is running...")
+print("Bot started at:", datetime.datetime.now())
 
 # Start the bot
 app.run()
