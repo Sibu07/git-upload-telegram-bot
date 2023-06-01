@@ -23,6 +23,7 @@ app = Client(
 )
 
 start_time = datetime.datetime.now()  # Store the start time
+timezone = pytz.timezone("Asia/Kolkata")
 
 @app.on_message(filters.command('start') & filters.private)
 def start_command(bot, message):
@@ -109,14 +110,14 @@ def uptime_command(bot, message):
 
 @app.on_message(filters.command('starttime'))
 def starttime_command(bot, message):
-    formatted_time = start_time.strftime("%A, %B %d, %Y %I:%M:%S %p")
+    formatted_time = now.astimezone(timezone).strftime("%A, %B %d, %Y %I:%M:%S %p")    
     app.send_message(
         chat_id=message.chat.id,
         text=f"The bot started at: {formatted_time}"
         )
 print("Bot is running...")
 now = datetime.datetime.now()
-formatted_time = now.strftime("%A, %B %d, %Y %I:%M:%S %p")
+formatted_time = now.astimezone(timezone).strftime("%A, %B %d, %Y %I:%M:%S %p")
 print("Bot started at:", formatted_time)
 # Start the bot
 app.run()
