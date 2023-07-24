@@ -1,0 +1,53 @@
+{
+  "name": "File To GitHub",
+  "description": "Direct Upload to GitHub",
+  "repository": "https://github.com/Sibu07/git-upload-telegram-bot",
+  "logo": "https://graph.org/file/656875701d707cbefafe4.jpg",
+  "env": {
+    "TELEGRAM_API_ID": {
+      "description": "Your Telegram API ID",
+      "required": true,
+      "default": ""
+    },
+    "TELEGRAM_API_HASH": {
+      "description": "Your Telegram API hash",
+      "required": true,
+      "default": ""
+    },
+    "TELEGRAM_BOT_TOKEN": {
+      "description": "Your Telegram bot token",
+      "required": true,
+      "default": ""
+    },
+    "GITHUB_USERNAME": {
+      "description": "Your GitHub username",
+      "required": true,
+      "default": ""
+    },
+    "GITHUB_REPO_NAME": {
+      "description": "Your GitHub repository name",
+      "required": true,
+      "default": ""
+    },
+    "GITHUB_ACCESS_TOKEN": {
+      "description": "Your GitHub personal access token",
+      "required": true,
+      "default": ""
+    },
+    "TELEGRAM_BOT_NAME": {
+      "description": "Your Telegram bot name (optional, default is '@Pyrgm_bot')",
+      "default": "@Pyrgm_bot"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "eco"
+    }
+  }
+}
