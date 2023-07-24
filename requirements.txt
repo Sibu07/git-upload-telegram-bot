@@ -17,3 +17,4 @@ TgCrypto
 urllib3
 Werkzeug
 pytz
+requests
