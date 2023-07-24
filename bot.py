@@ -8,8 +8,8 @@ import pytz
 from datetime import timedelta
 from pyrogram import Client, filters
 from pyrogram.types import Message
+import requests
 from dotenv import load_dotenv
-from flask import Flask
 
 # Load environment variables from .env file
 load_dotenv()
@@ -31,6 +31,7 @@ def start_command(bot, message):
         chat_id=message.chat.id,
         text="Hey bro!"
     )
+
 
 def upload_to_github(file_path: str, target_path: str):
     # Read file contents as binary
@@ -116,24 +117,8 @@ def starttime_command(bot, message):
         text=f"The bot started at: {formatted_time}"
     )
 
-# Create a Flask app
-flask_app = Flask(__name__)
-
-@flask_app.route('/')
-def home():
-    formatted_time = start_time.astimezone(timezone).strftime("%A, %B %d, %Y %I:%M:%S %p")
-    uptime = datetime.datetime.now() - start_time
-    days = uptime.days + 1 if uptime.seconds >= 43200 else uptime.days
-    hours, remainder = divmod(uptime.seconds, 3600)
-    minutes, seconds = divmod(remainder, 60)
-    uptime_text = f"{days} days, {hours:02d} hours, {minutes:02d} minutes, {seconds:02d} seconds"
-    return f"Bot started at: {formatted_time}<br>Bot runtime: {uptime_text}"
-
-if __name__ == "__main__":
-    print("Bot is running...")
-    # Start the Flask app in a separate thread
-    from threading import Thread
-    t = Thread(target=flask_app.run)
-    t.start()
-    # Start the bot
-    app.run()
+print("Bot is running...")
+formatted_time = start_time.astimezone(timezone).strftime("%A, %B %d, %Y %I:%M:%S %p")
+print("Bot started at:", formatted_time)
+# Start the bot
+app.run()
