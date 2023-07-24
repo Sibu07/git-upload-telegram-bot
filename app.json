@@ -7,36 +7,36 @@
     "TELEGRAM_API_ID": {
       "description": "Your Telegram API ID",
       "required": true,
-      "default": ""
+      "value": ""
     },
     "TELEGRAM_API_HASH": {
       "description": "Your Telegram API hash",
       "required": true,
-      "default": ""
+      "value": ""
     },
     "TELEGRAM_BOT_TOKEN": {
       "description": "Your Telegram bot token",
       "required": true,
-      "default": ""
+      "value": ""
     },
     "GITHUB_USERNAME": {
       "description": "Your GitHub username",
       "required": true,
-      "default": ""
+      "value": ""
     },
     "GITHUB_REPO_NAME": {
       "description": "Your GitHub repository name",
       "required": true,
-      "default": ""
+      "value": ""
     },
     "GITHUB_ACCESS_TOKEN": {
       "description": "Your GitHub personal access token",
       "required": true,
-      "default": ""
+      "value": ""
     },
     "TELEGRAM_BOT_NAME": {
       "description": "Your Telegram bot name (optional, default is '@Pyrgm_bot')",
-      "default": "@Pyrgm_bot"
+      "value": "@Pyrgm_bot"
     }
   },
   "buildpacks": [
